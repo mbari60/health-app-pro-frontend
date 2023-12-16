@@ -50,14 +50,14 @@ const PatientForm = () => {
           setFormData(initialData);
           // stop loading
           setisLoading(false);
-        },3000);
+        },5000);
       })
       .catch((err) => {
         setisLoading(false);
         console.log("There was an error posting data", err);
       });
   };
-
+  
   return (
     <Box
       maxW="500px"
@@ -108,7 +108,11 @@ const PatientForm = () => {
             name="gender"
             value={formData.gender}
             onChange={handleInputChange}
+            isRequired
           >
+            <option value="" disabled>
+              Select Gender
+            </option>
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="bisexual">Bi-sexual</option>
@@ -155,7 +159,11 @@ const PatientForm = () => {
             name="selectedDoctor"
             value={formData.selectedDoctor}
             onChange={handleInputChange}
+            isRequired
           >
+            <option value="" disabled>
+              Select Doctor
+            </option>
             {["Kevin", "Ray", "Vinn", "Mil", "jay"].map((doctor) => (
               <option key={doctor} value={doctor}>
                 Dr.{doctor}
