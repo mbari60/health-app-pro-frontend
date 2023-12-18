@@ -156,6 +156,9 @@ function DailyTrack() {
             value={dayTrack.medicationEffectiveness}
             onChange={handleDailyTrackChange}
           >
+            <option value="" disabled>
+              Select Medication Effectiveness
+            </option>
             <option value="effective">Effective</option>
             <option value="partiallyEffective">Partially Effective</option>
             <option value="notEffective">Not Effective</option>
@@ -203,6 +206,7 @@ function DailyTrack() {
             value={dayTrack.otherSymptoms}
             onChange={handleDailyTrackChange}
             placeholder="The currect symptoms that you are getting"
+            isRequired
           />
         </FormControl>
 

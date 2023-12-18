@@ -13,7 +13,7 @@ import {
   Heading,
 } from "@chakra-ui/react";
 
-function Lists({ patientsData, patientsDailyTrack , handleDelete}) {
+function Lists({ patientsData, patientsDailyTack ,handleDelete , handleDeleteDailyTrack, isDeleting}) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredPatientsData =
@@ -24,9 +24,9 @@ function Lists({ patientsData, patientsDailyTrack , handleDelete}) {
     });
 
   const filteredPatientsDailyTrack =
-    patientsDailyTrack &&
-    patientsDailyTrack.filter((dailyTrack) =>
-      dailyTrack.patNumber.includes(searchTerm)
+    patientsDailyTack &&
+    patientsDailyTack.filter((dailyTrack) =>
+      String(dailyTrack.patNumber).includes(String(searchTerm))
     );
 
   return (
@@ -95,24 +95,32 @@ function Lists({ patientsData, patientsDailyTrack , handleDelete}) {
             <Th>Nausea</Th>
             <Th>Tiredness</Th>
             <Th>Other Symptoms</Th>
+            <Th>Action</Th>
           </Tr>
         </Thead>
         <Tbody>
-          {patientsDailyTrack &&
-            filteredPatientsDailyTrack.map((dailyTrack, index) => (
-              <Tr key={index}>
-                <Td>{dailyTrack.patNumber}</Td>
-                <Td>{dailyTrack.bodyTemperature}</Td>
-                <Td>{dailyTrack.bloodPressure}</Td>
-                <Td>{dailyTrack.diet}</Td>
-                <Td>{dailyTrack.waterIntake}</Td>
-                <Td>{dailyTrack.medicationEffectiveness}</Td>
-                <Td>{dailyTrack.sleepDuration}</Td>
-                <Td>{dailyTrack.nausea ? "Yes" : "No"}</Td>
-                <Td>{dailyTrack.tiredness ? "Yes" : "No"}</Td>
-                <Td>{dailyTrack.otherSymptoms}</Td>
-              </Tr>
-            ))}
+          {filteredPatientsDailyTrack.map((dailyTrack, index) => (
+            <Tr key={index}>
+              <Td>{dailyTrack.patNumber}</Td>
+              <Td>{dailyTrack.bodyTemperature}</Td>
+              <Td>{dailyTrack.bloodPressure}</Td>
+              <Td>{dailyTrack.diet}</Td>
+              <Td>{dailyTrack.waterIntake}</Td>
+              <Td>{dailyTrack.medicationEffectiveness}</Td>
+              <Td>{dailyTrack.sleepDuration}</Td>
+              <Td>{dailyTrack.nausea ? "Yes" : "No"}</Td>
+              <Td>{dailyTrack.tiredness ? "Yes" : "No"}</Td>
+              <Td>{dailyTrack.otherSymptoms}</Td>
+              <Td>
+                <Button
+                  colorScheme="red"
+                  onClick={() => handleDeleteDailyTrack(dailyTrack.patNumber)}
+                >
+                  Delete
+                </Button>
+              </Td>
+            </Tr>
+          ))}
         </Tbody>
       </Table>
     </Stack>

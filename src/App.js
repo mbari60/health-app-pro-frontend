@@ -21,33 +21,51 @@ function App() {
       );
   });
   const [patientsDailyTack, setPatientsDailyTrack] = useState([]);
-  //fetching dailytrack list from database
+  // Fetching dailytrack list from the database
   useEffect(() => {
     fetch(`${BASE_URL}/dailytracks`)
       .then((res) => res.json())
       .then((data) => setPatientsDailyTrack(data))
       .catch((err) =>
-        console.log("There was a problem retrieving patients data", err)
+        console.log("There was a problem retrieving dailytrack data", err)
       );
   });
-  
- const handleDelete = (phone) => {
-   fetch(`${BASE_URL}/patientform/${phone}`, {
-     method: "DELETE",
-   })
-     .then((res) => {
-       if (!res.ok) {
-         throw new Error("Failed to delete data");
-       }
-       // Remove the deleted patient from the list
-       setPatientData((prevPatients) =>
-         prevPatients.filter((patient) => patient.phone !== phone)
-       );
-     })
-     .catch((err) => {
-       console.log("There was an error deleting data", err);
-     });
- };
+
+  const handleDelete = (phone) => {
+    fetch(`${BASE_URL}/patientform/${phone}`, {
+      method: "DELETE",
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to delete data");
+        }
+        // Removing the deleted patient from the list
+        setPatientData((prevPatients) =>
+          prevPatients.filter((patient) => patient.phone !== phone)
+        );
+      })
+      .catch((err) => {
+        console.log("There was an error deleting data", err);
+      });
+  };
+
+const handleDeleteDailyTrack = (patNumber) => {
+  fetch(`${BASE_URL}/dailytracks/${patNumber}`, {
+    method: "DELETE",
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Failed to delete data");
+      }
+      //removing the patient if the res is ok 
+      setPatientsDailyTrack((prevPatients) =>
+        prevPatients.filter((patient) => patient.patNumber !== patNumber)
+      );
+    })
+    .catch((err) => {
+      console.log("There was an error deleting data", err);
+    });
+};
 
   return (
     <main>
@@ -63,6 +81,7 @@ function App() {
               patientsData={patientsData}
               patientsDailyTack={patientsDailyTack}
               handleDelete={handleDelete}
+              handleDeleteDailyTrack={handleDeleteDailyTrack}
             />
           }
         />
