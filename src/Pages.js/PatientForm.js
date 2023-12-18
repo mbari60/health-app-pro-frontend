@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BASE_URL } from "../HostingUrl/Url";
+import toast from "react-hot-toast";
 import {
   Box,
   FormControl,
@@ -44,6 +45,7 @@ const PatientForm = () => {
     })
       .then((res) => res.json())
       .then(() => {
+        toast.success("Patient data added successfully", { duration: 5000 });
         // Adding a timeout of 3 seconds before resetting the form and stopping loading
         setTimeout(() => {
           // reset form
@@ -53,6 +55,9 @@ const PatientForm = () => {
         },5000);
       })
       .catch((err) => {
+        toast.error("Unknown error occurred. Try again later", {
+          duration: 6000,
+        });
         setisLoading(false);
         console.log("There was an error posting data", err);
       });

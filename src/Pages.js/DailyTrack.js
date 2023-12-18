@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { BASE_URL } from "../HostingUrl/Url";
+import toast from "react-hot-toast";
+
 import {
   Box,
   Heading,
@@ -55,6 +57,7 @@ function DailyTrack() {
     })
       .then((res) => res.json())
       .then(() => {
+        toast.success("Daily Track submitted successfully", { duration: 5000 });
         // Adding a timeout of 3 seconds before resetting the form and stopping loading
         setTimeout(() => {
           // reset form
@@ -65,8 +68,11 @@ function DailyTrack() {
         }, 3000);
       })
       .catch((err) => {
+        toast.error("Unknown error occurred. Try again later", {
+          duration: 5000,
+        });
         setisLoading(false);
-        console.log("There was an error posting data", err);
+        console.log(err);
       });
   };
 
