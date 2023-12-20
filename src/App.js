@@ -19,7 +19,7 @@ function App() {
       .catch((err) =>
         console.log("There was a problem retrieving patients data", err)
       );
-  });
+  },[]);
   const [patientsDailyTack, setPatientsDailyTrack] = useState([]);
   // Fetching dailytrack list from the database
   useEffect(() => {
@@ -29,7 +29,7 @@ function App() {
       .catch((err) =>
         console.log("There was a problem retrieving dailytrack data", err)
       );
-  });
+  },[]);
 
   const handleDelete = (phone) => {
     fetch(`${BASE_URL}/patientform/${phone}`, {
